@@ -7,5 +7,110 @@ Basket Summary
 {% endblock title %}
 
 {% block content %}
-contentasdasd
+
+<div class="container">
+    <main class="pt-5">
+        <div class="row g-3">
+        <span class="h3 fw-bold">Your Basket</span>
+            {% for item in basket %}
+
+            {% with product=item.product %}
+            <div data-index="{{ product.id }}" class="row mb-4 border product-item">
+                <div class="col-md-5 col-lg-5 order-md-first bg-light">
+                    <img class="img-fluid mx-auto d-block" width="100px" alt="Responsive image"
+                        src="{{ product.image.url }}">
+                </div>
+                <div class="col-md-7 col-lg-7 ps-md-3 ps-lg-5">
+                    <h1 class="mb-0 h4">{{ product.title }}</h1>
+                    <p><span class="lead">{{ product.author }}</span> (Author)</p>
+                    <div class="border">
+                        <div class="col border-bottom">
+                            <div class="row p-3">
+                                <div class="col-6">Hardback</div>
+                                <div class="col-6 text-end"><span class="h5">Rs. {{ product.price }}</span></div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row p-3">
+                                <div class="col-md-auto">
+                                    <label for="select">Qty</label>
+                                    <select id="select{{product.id}}">
+                                        <option selected>{{ item.qty }}</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
+                                        <option value="">4</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-auto">
+                                    <button type="button" id="update-button" data-index="{{ product.id }}"
+                                        class="btn btn-secondary btn-sm update-button">Update</button>
+                                </div>
+                                <div class="col-md-auto">
+                                    <button type="button" id="delete-button" data-index="{{ product.id }}"
+                                        class="btn btn-secondary btn-sm delete-button">Delete</button>
+                                </div>
+                                <div class="col-md text-end">
+                                    <span class="h5 fw-bold"> Total : Rs.{{ item.total_price }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            {% endwith %}
+
+            {% endfor %}
+
+            <div class="row g-3">
+                <div class="col-md text-end">
+                    <span class="h5 fw-bold"> Sub Total : Rs.{{ basket.get_sub_total }}</span>
+                </div>
+            </div>
+    </main>
+
+</div>
+
+<script>
+    $(document).on('click', '.delete-button', function (e) {
+        e.preventDefault();
+        var product_id = $(this).data('index');
+        $.ajax({
+            type: 'POST',
+            url: '{% url "basket:basket_delete" %}',
+            data: {
+                productid: $(this).data('index'),
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                action: 'post'
+            },
+            success: function (json) {
+                location.reload(true);
+            },
+            error: function (xhr, errmsg, err) {}
+        });
+    })
+
+    $(document).on('click', '.update-button', function (e) {
+        e.preventDefault();
+        var product_id = $(this).data('index');
+        $.ajax({
+            type: 'POST',
+            url: '{% url "basket:basket_update" %}',
+            data: {
+                productid: $(this).data('index'),
+                productqty: $('#select'+ product_id +' option:selected').text(),
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                action: 'post'
+            },
+            success: function (json) {
+                location.reload(true);
+            },
+            error: function (xhr, errmsg, err) {}
+        });
+    })
+</script>
 {% endblock content %}
