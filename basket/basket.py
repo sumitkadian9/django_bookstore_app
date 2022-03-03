@@ -67,14 +67,14 @@ class Basket():
         
         for item in basket.values():
             item['price'] = Decimal(item['price'])
-            item['total_price'] = item['price']*item['qty']
+            item['total_price'] = Decimal(item['price']*item['qty'])
             yield item
 
     def get_sub_total(self):
         """
         get total price of all products
         """
-        return sum((float(item['price'])*item['qty']) for item in self.basket.values())
+        return sum((Decimal(item['price'])*item['qty']) for item in self.basket.values())
 
     def save(self):
         self.session.modified = True

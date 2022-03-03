@@ -35,12 +35,12 @@
 
                             </div>
                             <div class="col-6 text-end">
-                            <button type="button"  id="add-button" value="{{ product.id }}" class="btn btn-secondary btn-sm">Add to basket</button></div>
+                            <button type="button"  id="add-button" value="{{ product.id }}" class="btn btn-success fw500">Add to basket</button></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="success-text"></div>
+            <div id="shop"><a href="{% url 'store:product_all' %}">Back to Shop</a></div>
         </div>
     </main>
 
@@ -59,8 +59,9 @@
                 action: 'post'
             },
             success: function (json) {
-                document.getElementById("basket-qty").innerHTML = json.qty
-                document.getElementById("success-text").innerHTML = "Success !"
+                /*document.getElementById("basket-qty").innerHTML = json.qty
+                document.getElementById("success-text").innerHTML = "Success !"*/
+                location.reload(true);
             },
             error: function (xhr, errmsg, err) {}
         });

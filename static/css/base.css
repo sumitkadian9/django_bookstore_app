@@ -1,0 +1,54 @@
+/* Bootstrap Over-ride */
+
+@media (min-width: 1000px){
+    .container{
+        max-width: 1000px;
+    }
+}
+@media (max-width: 1200px){
+    .container{
+        max-width: 100%;
+        padding:0 24px;
+    }
+}
+
+.dropdown-menu{
+    top: 65px;
+    left:0px;
+    padding:10px;
+}
+
+.alert-primary{
+    background-color: #E4F1FF;
+}
+
+/* Basket Menu */
+
+.basket-qty{
+    color: #000000;
+    background: #78d2e2;
+    border: 2px solid #fff;
+    border-radius: 70%;
+    text-align: center;
+    font-size: 11px;
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    box-sizing: content-box;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 1px;
+    right: 10px;
+}
+
+.basket-btn{
+    position: relative;
+}
+
+.basket-btn:hover, .basket-btn:focus, .basket-btn:active, .basket-btn.active{
+    color: #000000;
+    transition-duration: 0.4s;
+    background-color: #78d2e2;
+}
