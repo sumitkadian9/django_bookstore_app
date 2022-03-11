@@ -1,0 +1,9 @@
+{% extends "../../store/base.html" %}
+{% block title %}
+Activation link sent
+{% endblock title %}
+{% block content %}
+Activation link sent to e-mail! Please activate your account.
+<hr/>
+<a href="{% url 'store:product_all' %}">Click here for home page.</a>
+{% endblock content %}

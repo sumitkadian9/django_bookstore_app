@@ -1,0 +1,60 @@
+{% extends "../../store/base.html" %}
+{% block title %}
+Register
+{% endblock title %}Sign-in
+{% block content %}
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="col-md-12">
+            <div class="d-flex align-items-center py-5 login">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-7 mx-auto">
+                            <form class="account-form" action="." method="post">
+                                {% csrf_token %}
+                                    <h1 class="h3 mb-3 fw-normal">Sign-Up</h1>
+                                    {% if form.errors %}
+                                        <p>Please correct the following:</p>
+                                        {% for field in form %}
+                                            {% if field.errors %}
+                                                <div class="alert alert-primary" role="alert">
+                                                {{ field.label}}:{{ field.errors|striptags }}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                
+                                        <label>{{ form.email.label }}<span class="text-muted small"> (Required)</span></label>
+                                        {{ form.email }}
+                                
+                                
+                                
+                                        <label>{{ form.user_name.label }}<span
+                                        class="text-muted small"> (Required)</span></label>
+                                        {{ form.user_name }}
+                                
+                                
+                                
+                                <label>{{ form.password1.label }}<span class="text-muted small"> (Minimum 7
+                                        alphanumeric characters)</span></label>
+                                {{ form.password1 }}
+                                
+                                
+                                <label>{{ form.password2.label }}<span
+                                        class="text-muted small"> (Required)</span></label>
+                                {{ form.password2 }}
+                                
+                                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+                                <p class="text-center"><a href="/">Have an account? Login </a></p>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
