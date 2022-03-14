@@ -4,10 +4,10 @@ from django.utils.encoding import force_bytes, force_str
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from .forms import RegistrationForm
+from .forms import RegistrationForm, UserEditForm
 from .token import account_activation_token
 from .models import UserAcc
 
@@ -15,6 +15,26 @@ from .models import UserAcc
 def dashboard(request):
     return render(request, 'account/user/dashboard.html')
 
+
+@login_required
+def delete_user(request):
+    user = UserAcc.objects.get(user_name = request.user)
+    user.is_active = False
+    user.save()
+    logout(request)
+    return redirect('account:delete_confirmation')
+    
+
+@login_required
+def edit_details(request):
+
+    if request.method == 'POST':
+        userForm = UserEditForm(instance=request.user, data=request.POST)
+        if userForm.is_valid():
+            userForm.save()
+    else:
+        userForm = UserEditForm(instance=request.user)
+    return render(request, 'account/user/edit_details.html',{'userForm':userForm})
 
 
 def account_register(request):
@@ -41,6 +61,7 @@ def account_register(request):
     else:
         registerForm = RegistrationForm()
     return render(request, 'account/registration/register.html', {'form':registerForm})
+
 
 def account_activate(request, uidb64, token):
     try:

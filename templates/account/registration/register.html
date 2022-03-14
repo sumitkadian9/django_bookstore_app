@@ -1,7 +1,7 @@
 {% extends "../../store/base.html" %}
 {% block title %}
 Register
-{% endblock title %}Sign-in
+{% endblock title %}
 {% block content %}
 <div class="container-fluid">
     <div class="row no-gutter">
@@ -45,7 +45,7 @@ Register
                                 {{ form.password2 }}
                                 
                                 <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
-                                <p class="text-center"><a href="/">Have an account? Login </a></p>
+                                <p class="text-center"><a href="{% url "account:login" %}">Have an account? Login </a></p>
                             </form>
 
 

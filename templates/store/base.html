@@ -47,8 +47,8 @@
             </li>
           </ul>
         </div>
-        
-        <a type="button" role="button" href=""
+        {% if user.is_authenticated %}
+        <a type="button" role="button" href="{% url "account:logout" %}"
             class="btn btn-outline-secondary border-0 basket-btn">
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -60,8 +60,9 @@
             </div>
             <span class="fs15 fw500">Logout</span>
         </a>
+        {% else %}
 
-        <a type="button" role="button" href=""
+        <a type="button" role="button" href="{% url "account:login" %}"
             class="btn btn-outline-secondary border-0 basket-btn">
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -73,8 +74,9 @@
             </div>
             <span class="fs15 fw500">Login</span>
         </a>
+        {% endif %}
 
-        <a type="button" role="button" href=""
+        <a type="button" role="button" href="{% url "account:dashboard" %}"
             class="btn btn-outline-secondary border-0 basket-btn">
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person"
