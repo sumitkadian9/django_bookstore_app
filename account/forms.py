@@ -42,16 +42,28 @@ class UserEditForm(forms.ModelForm):
             attrs={'class': 'form-control mb-3', 'placeholder': 'email', 'id': 'form-email', 'readonly': 'readonly'}))
 
     user_name = forms.CharField(
-        label='Username', min_length=4, max_length=50, widget=forms.TextInput(
+        label='Username (can not be changed)', min_length=4, max_length=50, widget=forms.TextInput(
             attrs={'class': 'form-control mb-3', 'placeholder': 'Username', 'id': 'form-firstname', 'readonly': 'readonly'}))
 
     first_name = forms.CharField(
-        label='Firstname', min_length=4, max_length=50, widget=forms.TextInput(
+        label='First Name', min_length=4, max_length=50, widget=forms.TextInput(
             attrs={'class': 'form-control mb-3', 'placeholder': 'Firstname', 'id': 'form-lastname'}))
+    
+    about = forms.CharField(
+        label='About', min_length=4, max_length=155, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'about', 'id': 'form-about'}))
+
+    address_line_one = forms.CharField(
+        label='Address Line One', min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'address_line_one', 'id': 'form-address_line_one'}))
+    
+    address_line_two = forms.CharField(
+        label='Address Line Two', min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'address_line_two', 'id': 'form-address_line_two'}))
 
     class Meta:
         model = UserAcc
-        fields = ('email', 'user_name', 'first_name')
+        fields = ('email', 'user_name', 'first_name', 'about', 'phone_number','address_line_one', 'address_line_two')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
